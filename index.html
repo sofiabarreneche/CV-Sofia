@@ -53,6 +53,31 @@
       /* Ajuste final (tocá 0.93–0.95 si hace falta) */
       body { zoom: 0.94; }
     }
+    @media print {
+  /* un pelín menos de margen y shrink suave */
+  @page { margin: 9mm; }
+  body { zoom: 0.93; } /* si queda muy chico, probá 0.94 */
+
+  /* Compactar un poquito más los espacios verticales */
+  .mb-8 { margin-bottom: 6px !important; }
+  .space-y-6 > :not([hidden]) ~ :not([hidden]){ margin-top:8px !important; }
+
+  /* 👉 Skills: NO grid en print (grid no parte página). Usar columnas. */
+  .skills{
+    display: block !important;
+    columns: 3;                 /* probá 3 o 4 */
+    column-gap: 10px;
+    padding-left: 0;
+  }
+  .skills li{
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin-bottom: 2px !important;
+  }
+  .skills i{ font-size: 9.5pt !important; }
+  .skills span{ font-size: 9.5pt !important; }
+}
+
   </style>
 </head>
 
