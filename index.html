@@ -1,25 +1,59 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sofía Barreneche - Resume</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
+    body { font-family: 'Inter', sans-serif; }
+
+    /* -------- PDF / Print styles -------- */
+    @media print {
+      /* Ocultar cosas que no van en el PDF */
+      .no-print { display: none !important; }
+
+      /* Página A4 con márgenes cómodos */
+      @page { size: A4; margin: 14mm; }
+
+      /* Fondo blanco, sin sombras ni bordes redondeados */
+      body { background: #fff !important; color: #000 !important; }
+      .print-surface { background: #fff !important; box-shadow: none !important; border-radius: 0 !important; }
+
+      /* Tipografías más sobrias para papel */
+      h1 { font-size: 22pt !important; color: #000 !important; }
+      h2 { font-size: 14pt !important; color: #000 !important; }
+      h3 { font-size: 12pt !important; color: #000 !important; }
+      p, li, a { font-size: 11pt !important; color: #000 !important; }
+
+      /* Mostrar URLs (opcional) */
+      a[href^="http"]:after {
+        content: " (" attr(href) ")"; font-size: 9pt; color: #444;
+      }
+
+      /* Evitar cortes feos entre secciones/artículos */
+      section, article, header, footer { break-inside: avoid; page-break-inside: avoid; }
     }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
-  <div class="max-w-4xl mx-auto p-6 sm:p-10 bg-white shadow-lg rounded-lg mt-10 mb-20">
+  <div class="max-w-4xl mx-auto p-6 sm:p-10 bg-white shadow-lg rounded-lg mt-10 mb-20 print-surface">
+    <!-- Barra superior con botón PDF -->
+    <div class="flex justify-end mb-4 no-print">
+      <button id="btn-pdf"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition">
+        <i class="fas fa-file-pdf"></i> Descargar PDF
+      </button>
+    </div>
+
     <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-300 pb-6 mb-6">
       <div>
         <h1 class="text-4xl font-extrabold text-indigo-700">Sofía Barreneche</h1>
@@ -29,7 +63,7 @@
         <a href="mailto:sofia.barreneche@example.com" class="hover:text-indigo-700" aria-label="Email">
           <i class="fas fa-envelope fa-lg"></i>
         </a>
-        <a href="https://linkedin.com/in/sofiabarreneche" target="_blank" rel="noopener" class="hover:text-indigo-700" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/sofia-barreneche/" target="_blank" rel="noopener" class="hover:text-indigo-700" aria-label="LinkedIn">
           <i class="fab fa-linkedin fa-lg"></i>
         </a>
         <a href="https://github.com/sofiabarreneche" target="_blank" rel="noopener" class="hover:text-indigo-700" aria-label="GitHub">
@@ -100,7 +134,7 @@
         </li>
         <li class="flex items-center space-x-2">
           <i class="fas fa-database text-indigo-600"></i>
-          <span>Databases (SQL, NoSQL)</span>
+          <span>Databases (SQL)</span>
         </li>
         <li class="flex items-center space-x-2">
           <i class="fas fa-network-wired text-indigo-600"></i>
@@ -117,5 +151,10 @@
       </ul>
     </section>
   </div>
+
+  <!-- Botón PDF -->
+  <script>
+    document.getElementById('btn-pdf')?.addEventListener('click', () => window.print());
+  </script>
 </body>
 </html>
