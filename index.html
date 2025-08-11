@@ -64,6 +64,35 @@
       /* Ajuste final (tocá 0.92–0.95 si hace falta) */
       body { zoom: 0.92; }
     }
+    @media print {
+  /* un poquito menos de márgen y padding */
+  @page { margin: 7mm; }
+  .print-surface { padding: 10px !important; }
+
+  /* títulos y espacios más chicos */
+  h2 { margin-bottom: 4pt !important; }
+  .mb-8 { margin-bottom: 4px !important; }
+  .space-y-6 > :not([hidden]) ~ :not([hidden]){ margin-top:6px !important; }
+
+  /* Skills: aún más compactas */
+  .skills{
+    display: block !important;
+    columns: 5;                 /* antes 4 -> más corto */
+    column-gap: 8px;
+    padding-left: 0;
+  }
+  .skills li{
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    line-height: 1.15 !important;
+    margin-bottom: 1px !important;
+  }
+  .skills i, .skills span { font-size: 9pt !important; }
+
+  /* mini shrink global para cerrar la 1ª hoja */
+  body { zoom: 0.90; }          /* si queda muy chico, probá 0.91–0.92 */
+}
+
   </style>
 </head>
 
