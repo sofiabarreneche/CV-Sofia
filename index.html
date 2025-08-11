@@ -41,6 +41,29 @@
       /* Evitar cortes feos entre secciones/artículos */
       section, article, header, footer { break-inside: avoid; page-break-inside: avoid; }
     }
+    @media print {
+  /* Antes teníamos: section, article, header, footer { break-inside: avoid; } */
+  header, footer { break-inside: avoid; }
+  article { break-inside: avoid; }        /* Cada puesto no se corta a la mitad */
+  section { break-inside: auto; }         /* La sección SÍ puede partirse */
+}
+@media print {
+  @page { size: A4; margin: 12mm; }       /* un poco menos de margen */
+  .max-w-4xl { padding: 16px !important; }
+
+  h1 { font-size: 20pt !important; }
+  h2 { font-size: 13pt !important; margin-bottom: 6pt !important; }
+  h3 { font-size: 11.5pt !important; }
+  p, li, a { font-size: 10.5pt !important; line-height: 1.3 !important; }
+
+  ul { margin-top: 4pt !important; }
+  li { margin-bottom: 2pt !important; }
+
+  /* Si NO querés que imprima las URLs al lado de los links, desactivá esto: */
+  a[href^="http"]:after { content: none !important; }
+}
+
+
   </style>
 </head>
 
@@ -50,7 +73,7 @@
     <div class="flex justify-end mb-4 no-print">
       <button id="btn-pdf"
         class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition">
-        <i class="fas fa-file-pdf"></i> Descargar PDF
+        <i class="fas fa-file-pdf"></i> DOWNLOAD PDF
       </button>
     </div>
 
