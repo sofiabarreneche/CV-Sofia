@@ -1,38 +1,186 @@
-<style>
-  body { font-family: 'Inter', sans-serif; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sofía Barreneche - Resume</title>
 
-  /* ===== PRINT / PDF ===== */
-  @media print {
-    /* 1) Página y contenedor más compactos */
-    @page { size: A4; margin: 10mm; }
-    .print-surface { margin: 0 !important; padding: 12px !important; }
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    /* 2) Qué se imprime y cómo se parte */
-    .no-print, #btn-pdf { display: none !important; }
-    header, footer { break-inside: avoid; }
-    article { break-inside: avoid; }   /* no partir cada puesto */
-    section { break-inside: auto; }    /* la sección puede partirse si hace falta */
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-    /* 3) Tipos y espaciados más densos */
-    h1 { font-size: 20pt !important; color:#000 !important; }
-    h2 { font-size: 13pt !important; margin-bottom: 6pt !important; color:#000 !important; }
-    h3 { font-size: 11.5pt !important; color:#000 !important; }
-    p, li, a { font-size: 10.5pt !important; line-height: 1.28 !important; color:#000 !important; }
-    ul { margin-top: 4pt !important; }
-    li { margin-bottom: 2pt !important; }
+  <style>
+    body { font-family: 'Inter', sans-serif; }
 
-    /* Reducir espacios grandes de Tailwind */
-    .mb-8 { margin-bottom: 12px !important; }
-    header { padding-bottom: 8px !important; margin-bottom: 10px !important; border-bottom-width: 1px !important; }
+    /* ===== PRINT / PDF ===== */
+    @media print {
+      /* 1) Página y contenedor más compactos */
+      @page { size: A4; margin: 10mm; }
+      .print-surface { margin: 0 !important; padding: 12px !important; }
+      .no-print, #btn-pdf { display: none !important; }
+      body { background:#fff !important; color:#000 !important; }
 
-    /* 4) Skills: 3 columnas en PDF y gaps chicos */
-    ul[class*="grid-cols-2"] { grid-template-columns: repeat(3, 1fr) !important; }
-    .grid { gap: 8px !important; }
+      /* 2) Tipos y espaciados más densos */
+      h1 { font-size: 19pt !important; color:#000 !important; }
+      h2 { font-size: 12.5pt !important; margin-bottom: 6pt !important; color:#000 !important; }
+      h3 { font-size: 11pt !important; color:#000 !important; }
+      p, li, a { font-size: 10.2pt !important; line-height: 1.26 !important; color:#000 !important; }
+      ul { margin-top: 4pt !important; }
+      li { margin-bottom: 1.5pt !important; }
+      .mb-8 { margin-bottom: 10px !important; }
+      header { padding-bottom: 8px !important; margin-bottom: 10px !important; border-bottom-width: 1px !important; }
 
-    /* 5) No imprimir URLs al lado de los enlaces */
-    a[href^="http"]:after { content: none !important; }
+      /* 3) Reglas de corte */
+      header, footer { break-inside: avoid; }
+      article { break-inside: avoid; }
+      section { break-inside: auto; }
 
-    /* 6) Mini shrink global si aún falta un pelo (ajustá 0.96–0.92) */
-    body { background:#fff !important; color:#000 !important; zoom: 0.96; }
-  }
-</style>
+      /* 4) PRINT-ONLY: layout de 2 columnas */
+      .print-grid{
+        display: grid !important;
+        grid-template-columns: 1.35fr 1fr;   /* izquierda un poco más ancha */
+        column-gap: 12px;
+        row-gap: 10px;
+      }
+      /* Perfil ocupa ancho completo arriba */
+      .print-grid > section:nth-of-type(1){ grid-column: 1 / -1; }
+      /* Work Experience a la izquierda */
+      .print-grid > section:nth-of-type(2){ grid-column: 1; }
+      /* Education a la derecha */
+      .print-grid > section:nth-of-type(3){ grid-column: 2; }
+      /* Technical Skills debajo de Education (derecha) */
+      .print-grid > section:nth-of-type(4){ grid-column: 2; }
+
+      /* 5) Skills más densas (3 col en PDF) */
+      ul[class*="grid-cols-2"] { grid-template-columns: repeat(3, 1fr) !important; }
+      .grid { gap: 8px !important; }
+
+      /* 6) Sacar URLs impresas para ahorrar espacio */
+      a[href^="http"]:after { content: none !important; }
+
+      /* 7) Ajuste fino general: si falta, bajá a 0.94 o 0.92 */
+      body { zoom: 0.95; }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <div class="max-w-4xl mx-auto p-6 sm:p-10 bg-white shadow-lg rounded-lg mt-10 mb-20 print-surface">
+    <!-- Barra superior con botón PDF -->
+    <div class="flex justify-end mb-4 no-print">
+      <button id="btn-pdf"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition">
+        <i class="fas fa-file-pdf"></i> DOWNLOAD PDF
+      </button>
+    </div>
+
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-300 pb-6 mb-6">
+      <div>
+        <h1 class="text-4xl font-extrabold text-indigo-700">Sofía Barreneche</h1>
+        <p class="text-lg text-gray-600 mt-1">Advanced Student of Information Systems Engineering</p>
+      </div>
+      <div class="mt-4 sm:mt-0 flex space-x-6 text-gray-600">
+        <a href="mailto:sofia.barreneche@example.com" class="hover:text-indigo-700" aria-label="Email">
+          <i class="fas fa-envelope fa-lg"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/sofia-barreneche/" target="_blank" rel="noopener" class="hover:text-indigo-700" aria-label="LinkedIn">
+          <i class="fab fa-linkedin fa-lg"></i>
+        </a>
+        <a href="https://github.com/sofiabarreneche" target="_blank" rel="noopener" class="hover:text-indigo-700" aria-label="GitHub">
+          <i class="fab fa-github fa-lg"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- 👇 NUEVO: wrapper para el layout de impresión -->
+    <main class="print-grid">
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Professional Profile</h2>
+        <p class="text-gray-700 leading-relaxed">
+          I am Sofía Barreneche, an advanced student of Information Systems Engineering with only four subjects left to graduate. 
+          I have been working at JPMorgan for three years, including one year as a cybersecurity intern and two years as a full-time Software Engineer. 
+          My main focus is infrastructure and architecture, but I also develop software in Java and Python. I have solid database knowledge, which I use constantly as a work tool. 
+          I have experience attending engineering conferences and working in research environments. I consider myself an organized, meticulous person who enjoys teamwork and continuous learning.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Work Experience</h2>
+        <div class="space-y-6">
+          <article>
+            <h3 class="text-xl font-semibold text-indigo-700">Software Engineer - JPMorgan Chase & Co.</h3>
+            <p class="text-gray-600 italic">July 2023 - Present</p>
+            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <li>Design and development of infrastructure and architecture for critical company systems.</li>
+              <li>Software development in Java and Python for automation and optimization of internal processes.</li>
+              <li>Collaboration with multidisciplinary teams to ensure scalability and security of solutions.</li>
+              <li>Extensive use of databases for analysis, integration, and application support.</li>
+              <li>Active participation in code reviews and continuous improvement of development processes.</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3 class="text-xl font-semibold text-indigo-700">Cybersecurity Intern - JPMorgan Chase & Co.</h3>
+            <p class="text-gray-600 italic">July 2022 - June 2023 (1 year)</p>
+            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <li>Assisted in implementing IT security policies and controls.</li>
+              <li>Monitored and analyzed security incidents.</li>
+              <li>Collaborated in internal and external security audits.</li>
+              <li>Researched and documented vulnerabilities and best practices.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Education</h2>
+        <div>
+          <h3 class="text-xl font-semibold text-indigo-700">Information Systems Engineering - National University</h3>
+          <p class="text-gray-600 italic">Currently advanced student - 4 subjects remaining</p>
+          <p class="text-gray-700 mt-2">
+            Solid training in systems analysis, design and development, databases, networks, and IT security. Participation in research projects and engineering conferences.
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Technical Skills</h2>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-gray-700">
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-code text-indigo-600"></i>
+            <span>Java</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-code text-indigo-600"></i>
+            <span>Python</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-database text-indigo-600"></i>
+            <span>Databases (SQL)</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-network-wired text-indigo-600"></i>
+            <span>Infrastructure & Architecture</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-shield-alt text-indigo-600"></i>
+            <span>Cybersecurity</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <i class="fas fa-users text-indigo-600"></i>
+            <span>Teamwork</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Botón PDF -->
+  <script>
+    document.getElementById('btn-pdf')?.addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
