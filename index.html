@@ -14,7 +14,7 @@
 
   <style>
     body { font-family: 'Inter', sans-serif; }
-  
+
     /* ===== PRINT / PDF (1 columna limpia) ===== */
     @media print {
       /* Página y contenedor compactos */
@@ -22,56 +22,38 @@
       .print-surface { margin: 0 !important; padding: 12px !important; }
       .no-print, #btn-pdf { display: none !important; }
       body { background:#fff !important; color:#000 !important; }
-  
-      /* Volver a UNA columna (anula la grid anterior) */
-      .print-grid { display: block !important; }
-  
+
       /* Tipos y espaciados más densos */
-      h1 { font-size: 19pt !important; color:#000 !important; }
-      h2 { font-size: 12.5pt !important; margin-bottom: 6pt !important; color:#000 !important; }
-      h3 { font-size: 11pt !important; color:#000 !important; }
-      p, li, a { font-size: 10.2pt !important; line-height: 1.26 !important; color:#000 !important; }
-      ul { margin-top: 4pt !important; }
-      li { margin-bottom: 1.5pt !important; }
-  
+      h1 { font-size: 19pt !important; }
+      h2 { font-size: 12.5pt !important; margin-bottom: 6pt !important; }
+      h3 { font-size: 11pt !important; }
+      p, li, a { font-size: 10.2pt !important; line-height: 1.24 !important; }
+      .mb-8 { margin-bottom: 8px !important; }
+      .space-y-6 > :not([hidden]) ~ :not([hidden]){ margin-top:10px !important; }
+      .list-disc{ margin-top:2pt !important; }
+      .list-disc li{ margin-bottom:0.8pt !important; }
+
       /* Cortes: cada trabajo no se parte; las secciones sí pueden */
       header, footer { break-inside: avoid; }
       article { break-inside: avoid; }
       section { break-inside: auto; }
-  
-      /* Skills más densas (3 columnas) sin tocar tu HTML */
-      ul[class*="grid-cols-2"] { grid-template-columns: repeat(3, 1fr) !important; }
-      .grid { gap: 8px !important; }
-  
-      /* Sin URLs impresas para ahorrar espacio */
+
+      /* Skills más densas (4 columnas) e idiomas compactos */
+      .skills{ grid-template-columns: repeat(4,1fr) !important; gap:6px !important; }
+      .skills i{ font-size:10pt !important; }
+      .skills span{ font-size:10pt !important; }
+      .langs{ display:flex; flex-wrap:wrap; gap:10px; list-style:none; padding-left:0; }
+      .langs li{ margin:0 !important; }
+
+      /* Sin URLs impresas; sin sombras/bordes redondeados */
       a[href^="http"]:after { content: none !important; }
-  
-      /* Quitar sombras y bordes redondeados en papel */
       .shadow-lg { box-shadow: none !important; }
       .rounded-lg { border-radius: 0 !important; }
-  
-      /* Ajuste fino: si todavía falta, bajá a 0.94/0.92 */
-      body { zoom: 0.95; }
-      @media print{
-  /* aún más compacto */
-  .mb-8{ margin-bottom: 8px !important; }
-  .space-y-6 > :not([hidden]) ~ :not([hidden]){ margin-top:10px !important; }
-  .list-disc{ margin-top:2pt !important; }
-  .list-disc li{ margin-bottom:0.8pt !important; }
 
-  /* skills más densas: 4 columnas en PDF */
-  .skills{ grid-template-columns: repeat(4,1fr) !important; gap:6px !important; }
-  .skills i{ font-size:10pt !important; }
-  .skills span{ font-size:10pt !important; }
-
-  /* idiomas/certs en una sola línea si entra */
-  .langs{ display:flex; flex-wrap:wrap; gap:10px; list-style:none; padding-left:0; }
-  .langs li{ margin:0 !important; }
-}
-
+      /* Ajuste final (tocá 0.93–0.95 si hace falta) */
+      body { zoom: 0.94; }
     }
   </style>
-  
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -102,8 +84,7 @@
       </div>
     </header>
 
-    <!-- 👇 NUEVO: wrapper para el layout de impresión -->
-    <main class="print-grid">
+    <main>
       <section class="mb-8">
         <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Professional Profile</h2>
         <p class="text-gray-700 leading-relaxed">
@@ -152,6 +133,7 @@
           </p>
         </div>
       </section>
+
       <section class="mb-8">
         <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Talks & Publications</h2>
         <ul class="list-disc list-inside text-gray-700">
@@ -159,7 +141,7 @@
           <li>CONAIISI — Oral presentation (2020) – Blockchain & Applications.</li>
         </ul>
       </section>
-      
+
       <section class="mb-8">
         <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Other Experience</h2>
         <article>
@@ -174,59 +156,5 @@
           <p class="text-gray-600 italic">Sistemas y Organizaciones</p>
         </article>
       </section>
-      
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">
-          Languages & Certifications
-        </h2>
-        <ul class="langs list-disc list-inside text-gray-700">
-        <ul class="list-disc list-inside text-gray-700">
-          <li>Spanish (native) · English (B2 – Cambridge FCE)</li>
-          <li>AWS Certified Cloud Practitioner</li>
-        </ul>
-      </section>
-      
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold border-b-2 border-indigo-700 pb-2 mb-4">Technical Skills</h2>
-        <ul class="skills grid grid-cols-2 sm:grid-cols-3 gap-4 text-gray-700">
-        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-gray-700">
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-code text-indigo-600"></i>
-            <span>Java</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-code text-indigo-600"></i>
-            <span>Python</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-database text-indigo-600"></i>
-            <span>Databases (SQL)</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-network-wired text-indigo-600"></i>
-            <span>Infrastructure & Architecture</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-shield-alt text-indigo-600"></i>
-            <span>Cybersecurity</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-users text-indigo-600"></i>
-            <span>Teamwork</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="fas fa-project-diagram text-indigo-600"></i>
-            <span>Agile / Scrum</span>
-          </li>
-          
-        </ul>
-      </section>
-    </main>
-  </div>
 
-  <!-- Botón PDF -->
-  <script>
-    document.getElementById('btn-pdf')?.addEventListener('click', () => window.print());
-  </script>
-</body>
-</html>
+      <section cl
